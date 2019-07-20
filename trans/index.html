@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+	<section class="style-section">
+		<div class="all-info-box">
+
+			<!-- 导航栏 -->
+			<div class="info-nav">
+				<div class="webapp-title">
+					<h1>translation-info</h1>
+				</div>
+				<div class="nav-ul">
+					<ul>
+						<li class="style-icon">
+							<img class="user-icon" src="./img/11.png" alt="">
+						</li>
+						<li class="user-name">muzi</li>
+						<li><a href="./info.html">信息录入</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 字数 用时显示 -->
+			<div class="info-div-box">
+				<table>
+					<thead>
+						<tr>
+							<th>页码(page)</th>
+							<th>日期</th>
+							<th>用时(分钟)</th>
+							<th>字数(个)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- <tr>
+							<td>1</td>
+							<td>2019-9-9</td>
+							<td>100</td>
+							<td>10000</td>
+						</tr> -->
+
+					</tbody>
+				</table>
+			</div>
+			<div>
+			</div>
+		</div>
+	</section>
+
+</body>
+<script>
+	document.getElementsByTagName('body')[0].onload = function () {
+		var ajax = new XMLHttpRequest();
+		ajax.open('get', 'http://47.240.45.127:10086/getInfo');
+		ajax.onload = function () {
+			var data = JSON.parse(ajax.responseText).msg;
+			var data_length = data.length;
+
+			for (var i = 0; i < data_length; i++) {
+				var trans_page = i + 1;
+				var trans_data = data[i]["date"];
+				var trans_duration = data[i]["duration"]/60000;
+				var trans_total_word = data[i]["total_word"];
+				//创建tr标签
+				var new_tr_lable = document.createElement("tr");
+				//创建td标签
+				var new_td_lable_page = document.createElement("td");
+				var new_td_lable_data = document.createElement("td");
+				var new_td_lable_duration = document.createElement("td");
+				var new_td_lable_total_word = document.createElement("td");
+				//给td标签加入内容
+				new_td_lable_page.innerHTML = trans_page;
+				new_td_lable_data.innerHTML = trans_data;
+				new_td_lable_duration.innerHTML = trans_duration;
+				new_td_lable_total_word.innerHTML = trans_total_word;
+				//把td标签添加到tr标签当中
+				new_tr_lable.appendChild(new_td_lable_page);
+				new_tr_lable.appendChild(new_td_lable_data);
+				new_tr_lable.appendChild(new_td_lable_duration);
+				new_tr_lable.appendChild(new_td_lable_total_word);
+				//把tr标签添加到tbody当中
+				var added_lable = document.getElementsByTagName('tbody')[0];
+				added_lable.appendChild(new_tr_lable);
+
+
+			}
+		}
+		ajax.send(null);
+	}
+</script>
+
+</html>

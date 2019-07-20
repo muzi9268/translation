@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/info.css">
+</head>
+
+<body>
+  <section class="info-section">
+    <div class="info-area-box">
+      <h1>translation-信息录入</h1>
+      <!-- 录入区域 -->
+      <div class="area-of-input-box">
+
+        <!-- <div class="info-style-div">
+          <span>页码:</span>
+          <input class="input-text-style info-id" type="text" placeholder="请输入页码">
+        </div> -->
+        <div class="info-style-div">
+          <span>日期:</span>
+          <input class="input-text-style info-date" type="text" placeholder="请输入日期">
+        </div>
+        <div class="info-style-div">
+          <span>用时:</span>
+          <input class="input-text-style info-duration" type="text" placeholder="请输入用时">
+        </div>
+        <div class="info-style-div">
+          <span>字数:</span>
+          <input class="input-text-style info-total_word" type="text" placeholder="请输入字数">
+        </div>
+      </div>
+      <!-- 按钮区域 -->
+      <div class="submit-btn-box">
+        <button class="submit-btn">提交</button>
+        <button class="cancle-btn"><a href="./index.html">首页</a></button>
+      </div>
+    </div>
+
+  </section>
+</body>
+<script>
+  document.getElementsByClassName('submit-btn')[0].onclick = function () {
+
+    var ajax = new XMLHttpRequest();
+    ajax.open('get', 'http://47.240.45.127:10086/update');
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    ajax.onload = function () {
+      var date = document.getElementsByClassName('info-date')[0].value;
+      var duration = document.getElementsByClassName('info-duration')[0].value;
+      var total_word = document.getElementsByClassName('info-total_word')[0].value;
+      // console.log(date);
+    }
+    ajax.send("date=" + date + "&duration=" + duration + "&total_word" + total_word);
+
+
+  }
+</script>
+
+</html>
